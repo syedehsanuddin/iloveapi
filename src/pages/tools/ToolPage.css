@@ -1,0 +1,388 @@
+.tool-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  background: white;
+}
+
+.input-section {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  margin-bottom: 2rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #f3f4f6;
+  padding-bottom: 0.5rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+}
+
+.tab.active {
+  color: #1a1a1a;
+  border-bottom-color: #1a1a1a;
+  font-weight: 600;
+}
+
+.json-input, .url-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: 'Monaco', monospace;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  resize: vertical;
+}
+
+.json-input:focus, .url-input:focus {
+  outline: none;
+  border-color: #1a1a1a;
+  background: white;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #1a1a1a;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #333333;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: #fef2f2;
+  border: 2px solid #ef4444;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #ef4444;
+  margin-bottom: 2rem;
+}
+
+.output-section {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.output-header h3 {
+  margin: 0;
+  color: #1a1f2e;
+}
+
+.output-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-family: 'Monaco', monospace;
+  font-size: 0.875rem;
+  resize: vertical;
+  background: #f8f9fa;
+}
+
+.commands-list, .snippets-list, .endpoints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.command-item, .snippet-item, .endpoint-item {
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.command-header, .snippet-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.command-method, .snippet-method, .endpoint-method {
+  background: #1a1a1a;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.command-path, .snippet-path, .endpoint-path {
+  flex: 1;
+  font-family: 'Monaco', monospace;
+  color: #6b7280;
+}
+
+.command-code, .snippet-code {
+  background: #1a1f2e;
+  color: #f1f5f9;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: 'Monaco', monospace;
+  font-size: 0.875rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.btn-secondary {
+  background: white;
+  color: #6b7280;
+  border: 2px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn-secondary:hover {
+  background: #f5f5f5;
+  border-color: #1a1a1a;
+  color: #1a1a1a;
+}
+
+.validation-result {
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.validation-result.valid {
+  background: #f0fdf4;
+  border: 2px solid #10b981;
+  color: #065f46;
+}
+
+.validation-result.invalid {
+  background: #fef2f2;
+  border: 2px solid #ef4444;
+  color: #991b1b;
+}
+
+.issues-list, .warnings-list {
+  margin-top: 1.5rem;
+}
+
+.issues-list h4, .warnings-list h4 {
+  margin-bottom: 0.75rem;
+  color: #1a1f2e;
+}
+
+.issue-item, .warning-item {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.warning-item {
+  color: #92400e;
+}
+
+.graph-visualization {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.graph-node {
+  background: #1a1a1a;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.info-text {
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+.distribution-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.distribution-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.distribution-bar {
+  height: 24px;
+  background: #1a1a1a;
+  border-radius: 4px;
+  min-width: 20px;
+}
+
+.distribution-label {
+  font-weight: 600;
+  color: #1a1f2e;
+  min-width: 120px;
+}
+
+.stats-grid, .metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.stat-item, .metric-item {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.analysis-details {
+  margin-top: 1.5rem;
+}
+
+.analysis-details h4 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #1a1f2e;
+}
+
+.analysis-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.analysis-details li {
+  padding: 0.5rem;
+  background: #f8f9fa;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+.complexity-score-display {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.complexity-score-display h2 {
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.score-bar {
+  width: 100%;
+  height: 32px;
+  background: #e5e7eb;
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.score-fill {
+  height: 100%;
+  background: #1a1a1a;
+  transition: width 0.5s ease;
+}
+
+.comparison-stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.diff-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.diff-section.added {
+  background: #f0fdf4;
+  border-left: 4px solid #10b981;
+}
+
+.diff-section.removed {
+  background: #fef2f2;
+  border-left: 4px solid #ef4444;
+}
+
+.diff-section h4 {
+  margin-bottom: 0.75rem;
+}
+
+.diff-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.diff-section li {
+  padding: 0.5rem 0;
+  font-family: 'Monaco', monospace;
+}
+
+.info-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #1e40af;
+  margin-top: 1rem;
+}
+
+.security-score {
+  text-align: center;
+  padding: 2rem;
+  background: #1a1a1a;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.security-score h3 {
+  font-size: 2rem;
+  margin: 0;
+}
+
