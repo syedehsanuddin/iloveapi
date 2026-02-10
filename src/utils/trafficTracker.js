@@ -3,7 +3,11 @@
  * Sends visitor information to the backend server for logging
  */
 
-const TRACKING_ENDPOINT = 'http://localhost:3001/api/track';
+// Use Netlify Function in production, localhost in development
+const TRACKING_ENDPOINT = import.meta.env.PROD 
+  ? '/.netlify/functions/track'
+  : 'http://localhost:3001/api/track';
+
 let hasTracked = false;
 
 /**
@@ -34,7 +38,7 @@ export async function trackVisit(page = 'Unknown') {
     }
   } catch (error) {
     // Silently fail - don't interrupt user experience
-    console.warn('Traffic tracking failed (server may not be running):', error.message);
+    console.warn('Traffic tracking failed:', error.message);
   }
 }
 
@@ -44,4 +48,3 @@ export async function trackVisit(page = 'Unknown') {
 export function resetTracking() {
   hasTracked = false;
 }
-

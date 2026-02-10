@@ -66,8 +66,10 @@ export async function fetchSwaggerJson(inputUrl) {
       if (error.name === 'TypeError' || error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
         try {
           // Use proxy endpoint to bypass CORS
-          const proxyUrl = `http://localhost:3001/api/proxy-fetch?url=${encodeURIComponent(testUrl)}`;
-          const proxyResponse = await fetch(proxyUrl);
+// Use Netlify Function in production, localhost in development
+const proxyUrl = import.meta.env.PROD
+  ? `/.netlify/functions/proxy-fetch?url=${encodeURIComponent(testUrl)}`
+  : `http://localhost:3001/api/proxy-fetch?url=${encodeURIComponent(testUrl)}`;          const proxyResponse = await fetch(proxyUrl);
           
           if (proxyResponse.ok) {
             const proxyData = await proxyResponse.json();
