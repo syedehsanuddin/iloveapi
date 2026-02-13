@@ -34,7 +34,6 @@ function Navigation() {
     <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          <span className="logo-icon">🔌</span>
           <span className="logo-text">API Tools</span>
         </Link>
       </div>

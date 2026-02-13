@@ -35,9 +35,49 @@ export async function fetchSwaggerJson(inputUrl) {
   const pathname = urlObj.pathname;
   const baseUrl = `${protocol}//${hostname}${port}`;
   
+  // Helper function to check if URL is external (not localhost/private IP)
+  const isExternalUrl = (url) => {
+    try {
+      const urlObj = new URL(url);
+      const hostname = urlObj.hostname;
+      return !hostname.includes('localhost') && 
+             !hostname.includes('127.0.0.1') && 
+             !hostname.includes('192.168.') &&
+             !hostname.includes('10.') &&
+             !hostname.includes('172.') &&
+             hostname !== '::1';
+    } catch {
+      return true; // Assume external if can't parse
+    }
+  };
+
   // Helper function to test a URL and return result
   const testUrl = async (testUrl) => {
-    // First, try direct fetch
+    // For external URLs, use proxy immediately to avoid CORS issues
+    if (isExternalUrl(testUrl)) {
+      try {
+        const proxyUrl = import.meta.env.PROD
+          ? `/.netlify/functions/proxy-fetch?url=${encodeURIComponent(testUrl)}`
+          : `http://localhost:3001/api/proxy-fetch?url=${encodeURIComponent(testUrl)}`;
+        
+        const proxyResponse = await fetch(proxyUrl);
+        
+        if (proxyResponse.ok) {
+          const proxyData = await proxyResponse.json();
+          if (proxyData.success && proxyData.data) {
+            // Verify it's Swagger/OpenAPI JSON
+            if (proxyData.data.openapi || proxyData.data.swagger || proxyData.data.paths) {
+              return { success: true, data: proxyData.data, url: testUrl };
+            }
+          }
+        }
+      } catch (proxyError) {
+        console.warn('Proxy fetch failed:', proxyError);
+        // Fall through to try direct fetch as fallback
+      }
+    }
+
+    // For localhost URLs or if proxy failed, try direct fetch
     try {
       const response = await fetch(testUrl, {
         method: 'GET',
@@ -62,30 +102,27 @@ export async function fetchSwaggerJson(inputUrl) {
         }
       }
     } catch (error) {
-      // If it's a CORS error or network error, try proxy
-      if (error.name === 'TypeError' || error.message.includes('CORS') || error.message.includes('Failed to fetch')) {
+      // If direct fetch failed and we haven't tried proxy yet (for localhost), try proxy now
+      if (!isExternalUrl(testUrl)) {
         try {
-          // Use proxy endpoint to bypass CORS
-// Use Netlify Function in production, localhost in development
-const proxyUrl = import.meta.env.PROD
-  ? `/.netlify/functions/proxy-fetch?url=${encodeURIComponent(testUrl)}`
-  : `http://localhost:3001/api/proxy-fetch?url=${encodeURIComponent(testUrl)}`;          const proxyResponse = await fetch(proxyUrl);
+          const proxyUrl = import.meta.env.PROD
+            ? `/.netlify/functions/proxy-fetch?url=${encodeURIComponent(testUrl)}`
+            : `http://localhost:3001/api/proxy-fetch?url=${encodeURIComponent(testUrl)}`;
+          
+          const proxyResponse = await fetch(proxyUrl);
           
           if (proxyResponse.ok) {
             const proxyData = await proxyResponse.json();
             if (proxyData.success && proxyData.data) {
-              // Verify it's Swagger/OpenAPI JSON
               if (proxyData.data.openapi || proxyData.data.swagger || proxyData.data.paths) {
                 return { success: true, data: proxyData.data, url: testUrl };
               }
             }
           }
         } catch (proxyError) {
-          // Proxy also failed, return null
           console.warn('Proxy fetch also failed:', proxyError);
         }
       }
-      // Other errors, return null
       return null;
     }
     return null;
